@@ -1,0 +1,277 @@
+<?php
+$conn = mysqli_connect('localhost','root','','fcms');
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql_teams = 'SELECT TeamName FROM team';
+$result_teams = mysqli_query($conn, $sql_teams);
+
+if ($result_teams) {
+    
+    $tname = array();
+
+    
+    while ($row = mysqli_fetch_assoc($result_teams)) {
+        $tname[] = $row['TeamName'];
+    }
+
+    
+    mysqli_free_result($result_teams);
+} else {
+    echo 'Error querying database: ' . mysqli_error($conn);
+}
+
+$sql_tournaments = 'SELECT TournamentName FROM tournament';
+$result_tournaments = mysqli_query($conn, $sql_tournaments);
+
+if ($result_tournaments) {
+    
+    $toname = array();
+
+    
+    while ($row = mysqli_fetch_assoc($result_tournaments)) {
+        $toname[] = $row['TournamentName'];
+    }
+
+    
+    mysqli_free_result($result_tournaments);
+} else {
+    echo 'Error querying database: ' . mysqli_error($conn);
+}
+
+
+mysqli_close($conn);
+?>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Tournament</title>
+        <style>
+     *{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+body{
+    font-family: montserrat;
+}
+nav{
+    background: white;
+    width: 100%;
+    display:flex;
+	justify-content:space-between;
+}
+.logocontainer{
+padding:10px 40px;
+}
+
+nav img{
+width:80px;
+height:70px;
+}
+
+nav ul{
+ float: right;
+    margin-right: 20px;
+}
+nav ul li{
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 20px;
+}
+nav ul li a{
+    color: darkblue;
+    font-family: "agency fb";
+    font-size: 18px;
+    font-weight: bold;
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+a.active,a:hover{
+    background: #1b9bff;
+    transition: .5s;
+}
+.signimg{
+    padding-top: 20px;
+    background-image: url("ji2.jpg");
+    height:600px;
+}
+
+.signup{
+ width: 360px;
+ height: 550px;
+ margin: auto;
+ background:lightgreen;
+ border-radius: 3px;
+}
+.tournament{
+    margin: 0px;
+    background:url(adbg.jpg);
+    background-size:cover;
+    background-repeat: no-repeat;
+    height: 615px;
+}
+
+h1{
+ text-align:center;
+}
+
+h4{
+text-align: center;
+padding-top: 15px;
+}
+
+form{
+    background-color: #f9f9f934;
+    height:60%;
+    width:26%;
+    position: absolute;
+    top:20%;
+    left:38.5%;
+    padding:20px;
+    border-radius: 10px;
+    font-family: agency fb;
+    color:black;
+}
+
+form label {
+    font-family:montserrat;
+        display: inline-block;
+        margin-top: 10px;
+        width: 40%;
+        text-align: right;
+        margin-right: 10px;
+    }
+    form input {
+        margin-top: 5px;
+        width: 50%;
+        
+    }
+form p{
+    margin-top: 20px;
+    font-size: 20px;
+    font-style: italic;
+    text-align: center;}
+form p a{
+     text-decoration: none;
+     color:darkred;
+  
+}
+form select{
+        margin:20px;
+    }
+
+form img{
+    width:100px;
+height:75px;
+    display: block;
+        margin: 0 auto;
+}
+.button1:hover {
+    background-color: #1b9bff;
+    color: white;
+}
+.button1{
+    padding: 3px 8px;
+    border:2px solid black;
+    color:black;
+    background-color: aliceblue;
+    font-size: medium;
+    border-radius: 10px;
+}
+.button{
+    padding-top: 5px;
+    padding-left: 50%;
+}
+
+
+</style>
+    </head>
+    <body>
+        <nav>
+            <img src="logo3.png">   
+            <ul>
+            <li><a href="admin_dashboard.php">Home</a></li>
+                <li><a href="groundregister.php">Ground</a></li>
+                <li><a  href="referee_register.php">Referee</a></li>
+                <li><a  href="tournament.php">Tournament</a></li>
+                <li><a  href="fixtures.php">Fixtures</a></li>
+                <li><a  href="admin_login.php">Log Out</a></li>
+            </ul>
+        </nav>
+        <div class='tournament'>
+            <form  method="POST" action="submit_fixtures.php">
+            <img src="logo3.png"> 
+            <h1>Fixtures Allocation</h1>
+            <label for="TournamentName">Select Tournament:</label>
+    <select id="tournament_name" name="TournamentName" onchange="getTeamNames(this.value)" required>
+    <option value="">Select tournament</option>
+      <?php
+      $conn = mysqli_connect('localhost','root','','fcms');
+      if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+      }
+      
+        // Fetch tournament names from registrations table
+        $sql = "SELECT TournamentName FROM tournament";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+                       while ($row = $result->fetch_assoc()) {
+                echo "<option value='" . $row["TournamentName"] . "'>" . $row["TournamentName"] . "</option>";
+            }
+        } else {
+            echo "<option value=''>No tournaments found</option>";
+        }
+
+        $conn->close();
+      ?>
+    </select>
+
+    <label for="home_team">Home:</label>
+    <select id="home_team" name="Home" required>
+      <option value="">Select Team</option>
+    </select>
+    <label for="away_team">Away:</label>
+    <select id="away_team" name="Away" required>
+      <option value="">Select Team</option>
+    </select>
+    <label>Match Date</label>
+                <input type="date" name="Date">
+    <label>TIme</label>
+    <input type="time" name="Time">
+
+        <div class='button'>
+                <input type="submit" name="" value="Register" class='button1'></div>
+                </form>
+                <script>
+    function getTeamNames(tournament) {
+      // Fetch team names based on selected tournament
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("home_team").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "get_team_names.php?tournament=" + tournament, true);
+      xhttp.send();
+
+      var xhttpAway = new XMLHttpRequest();
+      xhttpAway.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("away_team").innerHTML = this.responseText;
+        }
+      };
+      xhttpAway.open("GET", "get_team_names.php?tournament=" + tournament, true);
+      xhttpAway.send();
+    }
+  </script>
+    </body>
+</html>
+

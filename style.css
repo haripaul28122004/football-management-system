@@ -1,0 +1,78 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+body{
+    font-family: montserrat;
+}
+nav{
+    background: darkgreen;
+   
+    width: 100%;
+    display:flex;
+	justify-content:space-between;
+}
+.logocontainer{
+display:flex;
+padding:10px 40px;
+}
+
+nav img{
+width:80px;
+height:70px;
+}
+
+nav ul{
+ float: right;
+    margin-right: 20px;
+}
+nav ul li{
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 50px;
+}
+nav ul li a{
+    color: black;
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+a.active,a:hover{
+    background: #1b9bff;
+    transition: .5s;
+}
+.landingpage
+{
+    background-image: url('fb.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 110% ;
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    margin-top: 10px;
+    height: 500px;
+
+}
+.content_1{
+    font-family: sans-serif;
+    justify-content: left;
+    align-items: left;
+    width: 50%;
+    text-align: left;
+
+}
+.text_1
+{
+    justify-content: left;
+    font-size: xx-large;
+    font-weight: bolder;
+    color:white;
+    text-shadow: 5px 5px blue;
+    align-items: left;
+    text-align: left;  
+}
