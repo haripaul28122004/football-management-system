@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect('localhost','root','','fcms');
+$conn = require_once 'db.php'; $conn = $con;
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -214,7 +214,7 @@ height:75px;
     <select id="tournament_name" name="TournamentName" onchange="getTeamNames(this.value)" required>
     <option value="">Select tournament</option>
       <?php
-      $conn = mysqli_connect('localhost','root','','fcms');
+      $conn = require_once 'db.php'; $conn = $con;
       if ($conn->connect_error) {
           die("Connection failed: " . $conn->connect_error);
       }

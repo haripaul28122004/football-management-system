@@ -1,6 +1,6 @@
 <?php
 // Database connection
-$conn=mysqli_connect("localhost","root","","fcms");
+$conn=require_once 'db.php'; $conn = $con;
   if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }

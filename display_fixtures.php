@@ -1,9 +1,7 @@
 
 <?php
-$conn = mysqli_connect('localhost','root','','fcms');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require 'db.php';
+$conn = $con;
 
 $sql = " SELECT * FROM fixtures";
 $result = $conn->query($sql);

@@ -1,6 +1,6 @@
 <?php
 // Establish connection to the database
-$conn = mysqli_connect('localhost', 'root', '', 'fcms');
+$conn = require_once 'db.php'; $conn = $con;
 
 // Check connection
 if (!$conn) {

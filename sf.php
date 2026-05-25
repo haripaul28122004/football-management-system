@@ -11,7 +11,7 @@
     <label for="TournamentName">Select Tournament:</label>
     <select id="tournament_name" name="TournamentName" onchange="getTeamNames(this.value)" required>
       <?php
-      $conn = mysqli_connect('localhost','root','','fcms');
+      $conn = require_once 'db.php'; $conn = $con;
       if ($conn->connect_error) {
           die("Connection failed: " . $conn->connect_error);
       }

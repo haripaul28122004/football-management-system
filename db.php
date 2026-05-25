@@ -1,5 +1,5 @@
 <?php
-$con = mysqli_connect(
+$con = @new mysqli(
     getenv('DB_HOST') ?: 'localhost',
     getenv('DB_USER') ?: 'root',
     getenv('DB_PASSWORD') ?: '',
@@ -8,6 +8,6 @@ $con = mysqli_connect(
 );
 
 if ($con->connect_error) {
-    die("Connection failed: " . $con->connect_error);
+    die("Database Connection failed! Please make sure your environment variables (DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT) are properly configured on Render. Error: " . $con->connect_error);
 }
 ?>
