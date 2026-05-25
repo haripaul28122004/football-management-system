@@ -6,7 +6,8 @@ RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 # Disable other MPMs and force mpm_prefork to prevent "More than one MPM loaded" error
 RUN rm -f /etc/apache2/mods-enabled/mpm_event.load /etc/apache2/mods-enabled/mpm_event.conf \
           /etc/apache2/mods-enabled/mpm_worker.load /etc/apache2/mods-enabled/mpm_worker.conf && \
-    a2enmod mpm_prefork
+    a2enmod mpm_prefork && \
+    ls -la /etc/apache2/mods-enabled/ | grep mpm
 
 # Enable Apache mod_rewrite and AllowOverride All
 RUN a2enmod rewrite && \
