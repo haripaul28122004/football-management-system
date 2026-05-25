@@ -1,0 +1,590 @@
+/* ==========================================================================
+   Football Management System - Premium Responsive Design Engine (responsive.css)
+   Inspired by Top-Tier Mobile App Architecture (Flipkart / Instagram styling)
+   ========================================================================== */
+
+/* Import premium typography */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary: #1b9bff;
+    --primary-dark: #0056b3;
+    --secondary-bg: #0f172a;
+    --emerald-green: #004d26;
+    --emerald-light: #10b981;
+    --light-accent: #f8fafc;
+    --border-color: #e2e8f0;
+    --text-primary: #1e293b;
+    --text-muted: #64748b;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-premium: 0 10px 30px -5px rgba(0, 0, 0, 0.15), 0 4px 12px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* Global premium defaults override */
+body {
+    font-family: 'Outfit', 'Montserrat', sans-serif !important;
+    background-color: var(--secondary-bg);
+    color: #ffffff;
+    min-height: 100vh;
+    padding-bottom: 0;
+    overflow-x: hidden;
+}
+
+/* Modern Header & Desktop Nav Restyling */
+nav {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 0 20px !important;
+    height: 75px;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: var(--transition-smooth);
+}
+
+.logocontainer {
+    padding: 0 !important;
+}
+
+nav img {
+    height: 55px !important;
+    width: auto !important;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+nav img:hover {
+    transform: scale(1.08) rotate(5deg);
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    margin-right: 0 !important;
+}
+
+nav ul li {
+    line-height: 75px !important;
+    margin: 0 12px !important;
+}
+
+nav ul li a {
+    color: var(--text-primary) !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+    letter-spacing: 0.5px;
+    transition: var(--transition-smooth) !important;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    background: rgba(27, 155, 255, 0.1) !important;
+    color: var(--primary) !important;
+}
+
+/* Mobile Bottom Navigation Bar (Flipkart Style) */
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 68px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+    padding: 0 10px;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: border-box;
+}
+
+.mobile-bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    width: 20%;
+    height: 100%;
+    transition: var(--transition-smooth);
+    position: relative;
+    padding-top: 4px;
+}
+
+.mobile-bottom-nav .nav-item svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+    margin-bottom: 4px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mobile-bottom-nav .nav-item span {
+    transition: var(--transition-smooth);
+}
+
+/* Active bottom navigation link style */
+.mobile-bottom-nav .nav-item.active {
+    color: var(--primary) !important;
+}
+
+.mobile-bottom-nav .nav-item.active svg {
+    fill: var(--primary) !important;
+    transform: translateY(-2px) scale(1.1);
+}
+
+/* Micro-interaction on hover/tap */
+.mobile-bottom-nav .nav-item:active svg {
+    transform: scale(0.9);
+}
+
+/* Base style corrections for background wrappers */
+.login, .teamregister, .tournament {
+    min-height: calc(100vh - 75px);
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 40px 15px !important;
+    box-sizing: border-box !important;
+    background-size: cover !important;
+    background-position: center !important;
+    position: relative !important;
+}
+
+/* Premium Form Card Reset */
+form {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 460px !important;
+    height: auto !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px !important;
+    box-shadow: var(--shadow-premium) !important;
+    padding: 35px 30px !important;
+    margin: 0 auto !important;
+    color: var(--text-primary) !important;
+    font-family: 'Outfit', sans-serif !important;
+    box-sizing: border-box !important;
+}
+
+form img {
+    width: 65px !important;
+    height: auto !important;
+    margin: 0 auto 15px auto !important;
+    display: block !important;
+}
+
+form h1 {
+    font-size: 26px !important;
+    color: var(--text-primary) !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 800 !important;
+    text-shadow: none !important;
+    margin-bottom: 25px !important;
+    text-align: center !important;
+}
+
+/* Styled stack labels and inputs */
+form label {
+    display: block !important;
+    width: 100% !important;
+    text-align: left !important;
+    margin-top: 16px !important;
+    margin-bottom: 6px !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    color: #475569 !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+form input, form select, form textarea {
+    display: block !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+    padding: 12px 16px !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 10px !important;
+    background-color: #ffffff !important;
+    color: var(--text-primary) !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 15px !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    transition: var(--transition-smooth) !important;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3.5px rgba(27, 155, 255, 0.18) !important;
+    background-color: #fff !important;
+}
+
+/* Radio alignment inside forms */
+.gender {
+    width: 100%;
+}
+
+.radio {
+    display: flex !important;
+    gap: 20px !important;
+    padding-left: 0 !important;
+    align-items: center !important;
+    margin-top: 10px !important;
+}
+
+.radio input {
+    width: auto !important;
+    height: 18px !important;
+    width: 18px !important;
+    margin-top: 0 !important;
+    cursor: pointer !important;
+}
+
+.radio label {
+    display: inline-block !important;
+    width: auto !important;
+    margin: 0 !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+}
+
+/* Spacers and wrappers inside form */
+.button {
+    padding-top: 25px !important;
+    padding-left: 0 !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+/* Premium Primary Button */
+input[type="submit"], button[type="submit"], .button1 {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 46px !important;
+    padding: 12px 24px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    transition: var(--transition-smooth) !important;
+    box-shadow: 0 4px 14px rgba(27, 155, 255, 0.3) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-top: 10px !important;
+    box-sizing: border-box !important;
+}
+
+input[type="submit"]:hover, button[type="submit"]:hover, .button1:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(27, 155, 255, 0.45) !important;
+    background: linear-gradient(135deg, var(--primary-dark), #004085) !important;
+}
+
+input[type="submit"]:active, button[type="submit"]:active, .button1:active {
+    transform: translateY(0) !important;
+}
+
+/* Dropdown list specific padding */
+form select {
+    padding-right: 30px !important;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 14px center !important;
+    background-size: 16px !important;
+}
+
+form p {
+    font-size: 14px !important;
+    margin-top: 20px !important;
+    color: var(--text-muted) !important;
+    text-align: center !important;
+}
+
+form p a {
+    color: var(--primary) !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    margin-left: 5px !important;
+}
+
+form p a:hover {
+    text-decoration: underline !important;
+}
+
+/* Beautiful responsive tables wrapper */
+.table-responsive {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto !important;
+    overflow-x: auto;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    background: #ffffff;
+}
+
+table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-family: 'Outfit', sans-serif !important;
+    background: #ffffff;
+    margin: 0 !important;
+    border: none !important;
+}
+
+th {
+    background: linear-gradient(135deg, #1e293b, #0f172a) !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    font-size: 13px !important;
+    letter-spacing: 0.5px !important;
+    padding: 16px 20px !important;
+    border: none !important;
+    text-align: center !important;
+}
+
+td {
+    color: var(--text-primary) !important;
+    padding: 14px 20px !important;
+    font-size: 14.5px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    background: #ffffff !important;
+    font-weight: 500 !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+
+tr:last-child td {
+    border-bottom: none !important;
+}
+
+tr:hover td {
+    background-color: var(--light-accent) !important;
+}
+
+/* General responsive elements */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ==========================================================================
+   Breakpoints for Small Screens (Mobile/Tablet Viewports <= 768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    body {
+        padding-bottom: 68px !important; /* Make room for bottom mobile bar */
+    }
+
+    /* Hide desktop navigation links */
+    nav ul {
+        display: none !important;
+    }
+
+    /* Center-align modern layout nav top bar */
+    nav {
+        justify-content: center !important;
+        height: 60px !important;
+    }
+
+    nav img {
+        height: 42px !important;
+    }
+
+    /* Display Flipkart-style Bottom Nav Bar */
+    .mobile-bottom-nav {
+        display: flex !important;
+    }
+
+    /* Table margin correction */
+    .table-responsive {
+        width: 95%;
+        margin: 20px auto !important;
+    }
+
+    th, td {
+        padding: 12px 14px !important;
+        font-size: 13px !important;
+    }
+
+    /* Custom Form Layout adjustments on small screens */
+    form {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 16px !important;
+        padding: 24px 20px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    form h1 {
+        font-size: 22px !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* Spacing adjustments on Landing Page details */
+    .landingpage {
+        height: 380px !important;
+        background-size: cover !important;
+        padding: 20px !important;
+    }
+
+    .content_1 {
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .text_1 {
+        font-size: 24px !important;
+        text-align: center !important;
+        text-shadow: 3px 3px 0px blue !important;
+    }
+
+    /* General forms margins and positioning updates */
+    .login, .teamregister, .tournament {
+        padding: 20px 10px !important;
+    }
+
+    /* Checkbox list wraps nicely */
+    form input[type="checkbox"] {
+        display: inline-block !important;
+        width: auto !important;
+        margin-right: 8px !important;
+        height: 16px !important;
+        width: 16px !important;
+    }
+
+    /* Stack grid structures vertically */
+    .about {
+        height: auto !important;
+        padding: 20px !important;
+    }
+
+    .content_aimg {
+        margin-left: 0 !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .content_aimg img {
+        width: 100% !important;
+        height: auto !important;
+        border-radius: 12px !important;
+        box-shadow: var(--shadow-premium);
+    }
+
+    .content_a {
+        flex-direction: column !important;
+        margin-left: 0 !important;
+    }
+
+    .ab {
+        width: 100% !important;
+        padding: 0 !important;
+        margin-top: 20px !important;
+    }
+
+    .ab h1 {
+        font-size: 32px !important;
+    }
+
+    .content_a p {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .mission-container {
+        width: 100% !important;
+        padding-left: 0 !important;
+        margin-top: 25px !important;
+    }
+
+    .mission-container h2 {
+        font-size: 26px !important;
+    }
+
+    .mission-list {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+
+    .gif-container {
+        margin-left: 0 !important;
+        text-align: center !important;
+        margin-top: 30px !important;
+    }
+
+    /* Contact Details Page Alignment overrides */
+    .contact {
+        flex-direction: column !important;
+        height: auto !important;
+        padding: 20px 10px !important;
+    }
+
+    .content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        margin-top: 20px !important;
+        text-align: center !important;
+    }
+
+    .queries {
+        width: 100% !important;
+        margin-right: 0 !important;
+        margin-top: 30px !important;
+    }
+
+    .queries form textarea {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .queries form input {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Gallery Alignment Overrides */
+    .gallery {
+        flex-direction: column !important;
+        height: auto !important;
+        padding: 10px !important;
+    }
+
+    .main, .main2 {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .main img, .main2 img, .jacky {
+        width: 100% !important;
+        height: auto !important;
+        margin-bottom: 12px !important;
+    }
+}

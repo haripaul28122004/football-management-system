@@ -97,6 +97,7 @@ a.active,a:hover{
             font-weight: lighter;
         }
     </style>
+    <link rel="stylesheet" href="responsive.css">
 </head>
  
 <body>
@@ -116,6 +117,7 @@ a.active,a:hover{
     <section>
         <h1>FIXTURES</h1>
          <br><br>
+        <div class="table-responsive">
         <table>
             <tr>
                 <th>Match No</th>
@@ -144,7 +146,27 @@ a.active,a:hover{
                 }
             ?>
         </table>
+        </div>
     </section>
+        <!-- Mobile Bottom Nav -->
+        <div class="mobile-bottom-nav">
+            <a href="user_dashboard.php" class="nav-item">
+                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                <span>Home</span>
+            </a>
+            <a href="display_tournament.php" class="nav-item">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+                <span>T-ment</span>
+            </a>
+            <a href="display_fixtures.php" class="nav-item active">
+                <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+                <span>Fixtures</span>
+            </a>
+            <a href="user_login.php" class="nav-item">
+                <svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                <span>Logout</span>
+            </a>
+        </div>
 </body>
  
 </html>
