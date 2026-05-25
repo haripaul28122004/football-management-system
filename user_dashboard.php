@@ -119,6 +119,14 @@ a.active,a:hover{
             </ul>
         </nav>
 
+        <div class="landingpage">
+            <div class="content_1">
+                <div class="text_1">
+                    Welcome Back, Athlete! <br> Your Dashboard
+                </div>
+            </div>
+        </div>
+
         <!-- Greeting Header Card -->
         <div class="mobile-banner-carousel" style="padding-top: 15px;">
             <div class="featured-banner-card" style="background: linear-gradient(135deg, #1b9bff, #0056b3);">
@@ -155,7 +163,7 @@ a.active,a:hover{
             <h2>Ongoing Tournaments</h2>
             <a href="display_tournament.php" class="view-all">View All</a>
         </div>
-        <div class="mobile-card-list">
+        <div class="home-card-grid">
             <?php if (!empty($tournaments)): ?>
                 <?php foreach ($tournaments as $t): ?>
                     <div class="mobile-data-card" style="margin-bottom: 0;">
@@ -186,7 +194,7 @@ a.active,a:hover{
             <h2>Upcoming Fixtures</h2>
             <a href="display_fixtures.php" class="view-all">View All</a>
         </div>
-        <div class="mobile-card-list">
+        <div class="home-card-grid">
             <?php if (!empty($fixtures)): ?>
                 <?php foreach ($fixtures as $f): ?>
                     <div class="mobile-data-card" style="margin-bottom: 0;">
@@ -216,13 +224,6 @@ a.active,a:hover{
             <?php endif; ?>
         </div>
 
-        <div class="landingpage">
-            <div class="content_1">
-                <div class="text_1">
-                    Welcome Back, Athlete! <br> Your Dashboard
-                </div>
-            </div>
-        </div>
         <!-- Mobile Bottom Nav -->
         <div class="mobile-bottom-nav">
             <a href="user_dashboard.php" class="nav-item active">

@@ -124,6 +124,14 @@ a.active,a:hover{
             </ul>
         </nav>
 
+        <div class="landingpage">
+            <div class="content_1">
+                <div class="text_1">
+                    Welcome to the <br> Football Management <br> System
+                </div>
+            </div>
+        </div>
+
         <!-- Sticky Mobile Search Bar -->
         <div class="mobile-search-bar">
             <div class="mobile-search-inner">
@@ -183,7 +191,7 @@ a.active,a:hover{
                 <a href="display_tournament.php" class="view-all">View All</a>
             </div>
             
-            <div class="mobile-card-list">
+            <div class="home-card-grid">
                 <?php if (!empty($tournaments)): ?>
                     <?php foreach ($tournaments as $t): ?>
                         <div class="mobile-data-card" style="margin-bottom: 0;">
@@ -247,14 +255,6 @@ a.active,a:hover{
             </div>
         </div>
 
-        <div class="landingpage">
-            <div class="content_1">
-                <div class="text_1">
-                    Welcome to the <br> Football Management <br> System
-                </div>
-            </div>
-        </div>
-       
         <!-- Mobile Bottom Nav -->
         <div class="mobile-bottom-nav">
             <a href="homepage.php" class="nav-item active">

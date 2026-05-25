@@ -743,7 +743,7 @@ img {
 /* 2-Column Grid Layout for Players (Flipkart-Style product listing) */
 .player-grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 20px;
     padding: 20px;
     max-width: 1200px;
@@ -1024,6 +1024,16 @@ img {
     text-decoration: none;
 }
 
+/* Desktop responsive layout for tournaments and fixtures cards */
+.home-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 /* Viewport Adjustments for Mobile Specific Elements */
 @media screen and (max-width: 768px) {
     /* Enable Flipkart UI elements */
@@ -1069,6 +1079,13 @@ img {
 
     .mobile-card-list {
         display: flex !important;
+    }
+
+    .home-card-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+        padding: 15px !important;
     }
 
     /* Adjust main section title */
