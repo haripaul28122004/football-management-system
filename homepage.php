@@ -1,3 +1,22 @@
+<?php
+require_once 'db.php';
+$tournaments = [];
+$players = [];
+if ($con) {
+    $res1 = mysqli_query($con, "SELECT * FROM tournament ORDER BY TID DESC LIMIT 2");
+    if ($res1) {
+        while ($r = mysqli_fetch_assoc($res1)) {
+            $tournaments[] = $r;
+        }
+    }
+    $res2 = mysqli_query($con, "SELECT * FROM playerdetails ORDER BY ID DESC LIMIT 2");
+    if ($res2) {
+        while ($r = mysqli_fetch_assoc($res2)) {
+            $players[] = $r;
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -104,7 +123,136 @@ a.active,a:hover{
                 <li><a  href="admin_login.php">Admin</a></li>
             </ul>
         </nav>
+
+        <!-- Sticky Mobile Search Bar -->
+        <div class="mobile-search-bar">
+            <div class="mobile-search-inner">
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                <input type="text" placeholder="Search tournaments, fixtures or players..." class="mobile-search-input" id="mobileSearch">
+            </div>
+        </div>
+
+        <!-- Horizontal Categories Slider -->
+        <div class="mobile-categories-slider">
+            <a href="display_tournament.php" class="category-item">
+                <div class="category-icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34"/><path d="M12 2a6 6 0 0 1 6 6v3.5c0 1.66-2 3.5-6 3.5s-6-1.84-6-3.5V8a6 6 0 0 1 6-6z"/></svg>
+                </div>
+                <div class="category-label">Tournaments</div>
+            </a>
+            <a href="display_fixtures.php" class="category-item">
+                <div class="category-icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <div class="category-label">Fixtures</div>
+            </a>
+            <a href="userplayerview.php" class="category-item">
+                <div class="category-icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div class="category-label">Players</div>
+            </a>
+            <a href="gallery.php" class="category-item">
+                <div class="category-icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+                <div class="category-label">Gallery</div>
+            </a>
+            <a href="about.php" class="category-item">
+                <div class="category-icon-wrapper">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                </div>
+                <div class="category-label">About Us</div>
+            </a>
+        </div>
+
+        <!-- Featured Banner Card -->
+        <div class="mobile-banner-carousel">
+            <div class="featured-banner-card">
+                <div class="banner-badge">Hot Fixture</div>
+                <div class="banner-title">Murph's Chennai Cup</div>
+                <div class="banner-desc">Live league matches starting this Friday! Witness the clash of local titans.</div>
+            </div>
+        </div>
+
+        <!-- Live Featured Cards Section -->
+        <div class="mobile-featured-live">
+            <!-- Featured Tournaments -->
+            <div class="section-header-modern">
+                <h2>Featured Tournaments</h2>
+                <a href="display_tournament.php" class="view-all">View All</a>
+            </div>
+            
+            <div class="mobile-card-list">
+                <?php if (!empty($tournaments)): ?>
+                    <?php foreach ($tournaments as $t): ?>
+                        <div class="mobile-data-card" style="margin-bottom: 0;">
+                            <div class="card-top-row">
+                                <span class="card-category-badge"><?php echo htmlspecialchars($t['Type']); ?></span>
+                                <span style="font-size: 12px; font-weight: 700; color: #10b981;">₹<?php echo htmlspecialchars($t['EntryFees']); ?></span>
+                            </div>
+                            <div class="card-title-main"><?php echo htmlspecialchars($t['TournamentName']); ?></div>
+                            <div class="card-info-grid">
+                                <div class="info-grid-item">
+                                    <span class="info-grid-lbl">Location</span>
+                                    <span class="info-grid-val"><?php echo htmlspecialchars($t['Location']); ?></span>
+                                </div>
+                                <div class="info-grid-item">
+                                    <span class="info-grid-lbl">Starts On</span>
+                                    <span class="info-grid-val"><?php echo htmlspecialchars($t['StartingDate']); ?></span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div style="text-align: center; color: #64748b; font-size: 13px; padding: 10px;">No featured tournaments found.</div>
+                <?php endif; ?>
+            </div>
+
+            <!-- Featured Players -->
+            <div class="section-header-modern">
+                <h2>Top Players</h2>
+                <a href="userplayerview.php" class="view-all">View All</a>
+            </div>
+
+            <div class="player-grid-container" style="margin-top: 0; padding-top: 0;">
+                <?php if (!empty($players)): ?>
+                    <?php foreach ($players as $p): ?>
+                        <div class="player-card-modern" style="margin-bottom: 0;">
+                            <div class="player-image-wrap">
+                                <?php 
+                                    $imgSrc = !empty($p['image']) && file_exists('img/' . $p['image']) ? 'img/' . $p['image'] : 'giff.gif'; 
+                                ?>
+                                <img src="<?php echo $imgSrc; ?>" alt="<?php echo htmlspecialchars($p['Name']); ?>">
+                                <span class="player-badge"><?php echo htmlspecialchars($p['position']); ?></span>
+                            </div>
+                            <div class="player-details-wrap">
+                                <div class="player-name-modern"><?php echo htmlspecialchars($p['Name']); ?></div>
+                                <div class="player-stats-row">
+                                    <div class="player-stat-item">
+                                        <div class="stat-val"><?php echo htmlspecialchars($p['matches']); ?></div>
+                                        <div class="stat-lbl">Matches</div>
+                                    </div>
+                                    <div class="player-stat-item">
+                                        <div class="stat-val"><?php echo htmlspecialchars($p['goals']); ?></div>
+                                        <div class="stat-lbl">Goals</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div style="text-align: center; color: #64748b; font-size: 13px; padding: 10px; grid-column: span 2;">No featured players found.</div>
+                <?php endif; ?>
+            </div>
+        </div>
+
         <div class="landingpage">
+            <div class="content_1">
+                <div class="text_1">
+                    Welcome to the <br> Football Management <br> System
+                </div>
+            </div>
         </div>
        
         <!-- Mobile Bottom Nav -->

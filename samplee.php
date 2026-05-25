@@ -23,6 +23,9 @@ if(isset($_POST["submit"])){
             $newImageName=uniqid();
             $newImageName .='.' . $imageExtension;
 
+            if (!file_exists('img')) {
+                mkdir('img', 0777, true);
+            }
             move_uploaded_file($tmpName, 'img/' .$newImageName);
             $query="INSERT INTO  images VALUES('', '$name','$newImageName')";
             mysqli_query($con, $query);

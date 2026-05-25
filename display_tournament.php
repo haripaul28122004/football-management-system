@@ -1,10 +1,15 @@
-
 <?php
 require 'db.php';
 $conn = $con;
 
 $sql = " SELECT * FROM tournament";
 $result = $conn->query($sql);
+$tournaments = [];
+if ($result) {
+    while($row = $result->fetch_assoc()) {
+        $tournaments[] = $row;
+    }
+}
 $conn->close();
 ?>
 
@@ -16,87 +21,18 @@ $conn->close();
     <title>Tournament Details</title>
 
     <style>
-     *{
-    padding: 0;
-    margin: 0;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: border-box;
-}
-body{
-    font-family: montserrat;
-    background-color: darkblue;
-}
-nav{
-    background: white;
-    width: 100%;
-    display:flex;
-	justify-content:space-between;
-}
-.logocontainer{
-padding:10px 40px;
-}
-
-nav img{
-width:80px;
-height:70px;
-}
-
-nav ul{
- float: right;
-    margin-right: 20px;
-}
-nav ul li{
-    display: inline-block;
-    line-height: 80px;
-    margin: 0 20px;
-}
-nav ul li a{
-    color: darkblue;
-    font-family: agency fb;
-    font-size: 18px;
-    padding: 7px 13px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-a.active,a:hover{
-    background: #1b9bff;
-    transition: .5s;
-}
-h3 a{
-    color:white;
-}
-        table {
-            margin: 0 auto;
-            font-size: large;
-            border: 1px solid black;
-        }
- 
-        h1 {
-            text-align: center;
-            color: white;
-            font-size: xx-large;
-            font-family: 'agency fb';
-        }
- 
-        td {
-            background-color: #E4F5D4;
-            border: 1px solid black;
-        }
- 
-        th,
-        td {
-            background-color: white;
-            font-weight: bold;
-            border: 1px solid black;
-            padding: 10px;
-            text-align: center;
-        }
- 
-        td {
-            font-weight: lighter;
-        }
+    body {
+        background-color: var(--secondary-bg) !important;
+    }
+    h1 {
+        text-align: center;
+        color: white;
+        font-size: xx-large;
+        font-family: 'Outfit', sans-serif !important;
+        font-weight: 800 !important;
+        margin-top: 30px;
+        letter-spacing: 0.5px;
+    }
     </style>
     <link rel="stylesheet" href="responsive.css">
 </head>
@@ -132,27 +68,58 @@ h3 a{
                 <th>Entry Fees</th>
             </tr>
     
-            <?php 
-            
-                while($rows=$result->fetch_assoc())
-                {
-            ?>
+            <?php foreach ($tournaments as $t): ?>
             <tr>
-
-                <td><?php echo $rows['TID'];?></td>
-                <td><?php echo $rows['TournamentName'];?></td>
-                <td><?php echo $rows['Location'];?></td>
-                <td><?php echo $rows['Owner'];?></td>
-                <td><?php echo $rows['StartingDate'];?></td>
-                <td><?php echo $rows['EndingDate'];?></td>
-                <td><?php echo $rows['PhoneNo'];?></td>
-                <td><?php echo $rows['Type'];?></td>
-                <td><?php echo $rows['EntryFees'];?></td>
+                <td><?php echo htmlspecialchars($t['TID']);?></td>
+                <td><?php echo htmlspecialchars($t['TournamentName']);?></td>
+                <td><?php echo htmlspecialchars($t['Location']);?></td>
+                <td><?php echo htmlspecialchars($t['Owner']);?></td>
+                <td><?php echo htmlspecialchars($t['StartingDate']);?></td>
+                <td><?php echo htmlspecialchars($t['EndingDate']);?></td>
+                <td><?php echo htmlspecialchars($t['PhoneNo']);?></td>
+                <td><?php echo htmlspecialchars($t['Type']);?></td>
+                <td>₹<?php echo htmlspecialchars($t['EntryFees']);?></td>
             </tr>
-            <?php
-                }
-            ?>
+            <?php endforeach; ?>
         </table>
+        </div>
+
+        <!-- Mobile Alternative Card List -->
+        <div class="mobile-card-list">
+            <?php if (!empty($tournaments)): ?>
+                <?php foreach ($tournaments as $t): ?>
+                    <div class="mobile-data-card">
+                        <div class="card-top-row">
+                            <span class="card-category-badge"><?php echo htmlspecialchars($t['Type']); ?></span>
+                            <span style="font-size: 12px; font-weight: 700; color: #10b981;">₹<?php echo htmlspecialchars($t['EntryFees']); ?></span>
+                        </div>
+                        <div class="card-title-main"><?php echo htmlspecialchars($t['TournamentName']); ?></div>
+                        <div class="card-info-grid">
+                            <div class="info-grid-item">
+                                <span class="info-grid-lbl">Location</span>
+                                <span class="info-grid-val"><?php echo htmlspecialchars($t['Location']); ?></span>
+                            </div>
+                            <div class="info-grid-item">
+                                <span class="info-grid-lbl">Owner</span>
+                                <span class="info-grid-val"><?php echo htmlspecialchars($t['Owner']); ?></span>
+                            </div>
+                            <div class="info-grid-item">
+                                <span class="info-grid-lbl">Starts</span>
+                                <span class="info-grid-val"><?php echo htmlspecialchars($t['StartingDate']); ?></span>
+                            </div>
+                            <div class="info-grid-item">
+                                <span class="info-grid-lbl">Ends</span>
+                                <span class="info-grid-val"><?php echo htmlspecialchars($t['EndingDate']); ?></span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px; text-align: center;">
+                            <a href="tournament_register.php?tid=<?php echo htmlspecialchars($t['TID']); ?>" class="button1" style="display: block; width: 100%; text-decoration: none; padding: 10px; font-size: 13px; text-align:center;">REGISTER NOW</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div style="text-align: center; color: #64748b; font-size: 14px; padding: 20px;">No tournaments available at the moment.</div>
+            <?php endif; ?>
         </div>
     </section>
    <br><br>

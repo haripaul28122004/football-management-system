@@ -1,4 +1,22 @@
-
+<?php
+require_once 'db.php';
+$tournaments = [];
+$fixtures = [];
+if ($con) {
+    $res1 = mysqli_query($con, "SELECT * FROM tournament ORDER BY TID DESC LIMIT 2");
+    if ($res1) {
+        while ($r = mysqli_fetch_assoc($res1)) {
+            $tournaments[] = $r;
+        }
+    }
+    $res2 = mysqli_query($con, "SELECT * FROM fixtures ORDER BY FixturesID DESC LIMIT 2");
+    if ($res2) {
+        while ($r = mysqli_fetch_assoc($res2)) {
+            $fixtures[] = $r;
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -100,9 +118,110 @@ a.active,a:hover{
                         <li><a  href="user_login.php">Log Out</a></li>
             </ul>
         </nav>
+
+        <!-- Greeting Header Card -->
+        <div class="mobile-banner-carousel" style="padding-top: 15px;">
+            <div class="featured-banner-card" style="background: linear-gradient(135deg, #1b9bff, #0056b3);">
+                <div class="banner-badge" style="background: #10b981;">User Dashboard</div>
+                <div class="banner-title" style="font-size: 20px;">Welcome Back, Athlete!</div>
+                <div class="banner-desc">Ready to dominate the field? Register your team or explore ongoing tournaments below.</div>
+            </div>
+        </div>
+
+        <!-- Quick Action Cards Grid -->
+        <div class="dashboard-actions-grid">
+            <a href="teamregistration.php" class="action-card-modern">
+                <div class="action-card-icon emerald">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div class="action-card-title">Register Team</div>
+            </a>
+            <a href="display_tournament.php" class="action-card-modern">
+                <div class="action-card-icon blue">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34"/><path d="M12 2a6 6 0 0 1 6 6v3.5c0 1.66-2 3.5-6 3.5s-6-1.84-6-3.5V8a6 6 0 0 1 6-6z"/></svg>
+                </div>
+                <div class="action-card-title">Tournaments</div>
+            </a>
+            <a href="display_fixtures.php" class="action-card-modern">
+                <div class="action-card-icon amber">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <div class="action-card-title">Fixtures</div>
+            </a>
+        </div>
+
+        <!-- Ongoing Tournaments Section -->
+        <div class="section-header-modern">
+            <h2>Ongoing Tournaments</h2>
+            <a href="display_tournament.php" class="view-all">View All</a>
+        </div>
+        <div class="mobile-card-list">
+            <?php if (!empty($tournaments)): ?>
+                <?php foreach ($tournaments as $t): ?>
+                    <div class="mobile-data-card" style="margin-bottom: 0;">
+                        <div class="card-top-row">
+                            <span class="card-category-badge"><?php echo htmlspecialchars($t['Type']); ?></span>
+                            <span style="font-size: 12px; font-weight: 700; color: #10b981;">₹<?php echo htmlspecialchars($t['EntryFees']); ?></span>
+                        </div>
+                        <div class="card-title-main"><?php echo htmlspecialchars($t['TournamentName']); ?></div>
+                        <div class="card-info-grid">
+                            <div class="info-grid-item">
+                                <span class="info-grid-lbl">Location</span>
+                                <span class="info-grid-val"><?php echo htmlspecialchars($t['Location']); ?></span>
+                            </div>
+                            <div class="info-grid-item">
+                                <span class="info-grid-lbl">Ends On</span>
+                                <span class="info-grid-val"><?php echo htmlspecialchars($t['EndingDate']); ?></span>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div style="text-align: center; color: #64748b; font-size: 13px; padding: 10px;">No tournaments found.</div>
+            <?php endif; ?>
+        </div>
+
+        <!-- Upcoming Fixtures Section -->
+        <div class="section-header-modern">
+            <h2>Upcoming Fixtures</h2>
+            <a href="display_fixtures.php" class="view-all">View All</a>
+        </div>
+        <div class="mobile-card-list">
+            <?php if (!empty($fixtures)): ?>
+                <?php foreach ($fixtures as $f): ?>
+                    <div class="mobile-data-card" style="margin-bottom: 0;">
+                        <div class="card-top-row">
+                            <span class="card-category-badge"><?php echo htmlspecialchars($f['TournamentName']); ?></span>
+                            <span style="font-size: 12px; font-weight: 700; color: #3b82f6;">Fixture #<?php echo htmlspecialchars($f['FixturesID']); ?></span>
+                        </div>
+                        
+                        <div class="match-card-vs">
+                            <div class="match-team">
+                                <div class="match-team-name"><?php echo htmlspecialchars($f['Home']); ?></div>
+                            </div>
+                            <div class="match-vs-circle">VS</div>
+                            <div class="match-team">
+                                <div class="match-team-name"><?php echo htmlspecialchars($f['Away']); ?></div>
+                            </div>
+                        </div>
+                        
+                        <div class="match-card-meta">
+                            <span>Date: <?php echo htmlspecialchars($f['Date']); ?></span>
+                            <span>Time: <?php echo htmlspecialchars($f['Time']); ?></span>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div style="text-align: center; color: #64748b; font-size: 13px; padding: 10px;">No upcoming fixtures found.</div>
+            <?php endif; ?>
+        </div>
+
         <div class="landingpage">
-            
-               
+            <div class="content_1">
+                <div class="text_1">
+                    Welcome Back, Athlete! <br> Your Dashboard
+                </div>
+            </div>
         </div>
         <!-- Mobile Bottom Nav -->
         <div class="mobile-bottom-nav">

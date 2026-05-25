@@ -6,144 +6,16 @@ require 'db.php';
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Float four columns side by side */
-.column {
-  float: left;
-  width: 25%;
-  padding: 0 10px;
-}
-
-/* Remove extra left and right margins, due to padding */
-.row {margin: 0 -5px;}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive columns */
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
-}
-
-/* Style the counter cards */
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 16px;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-  color: white;
-  height: 400px; /* Fixed height for the cards */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* Align items at the bottom */
-}
-
-.card-content {
-  margin-top: auto;
-  background: rgba(0, 0, 0, 0.5); /* Optional: Add background for better text readability */
-  width: 100%;
-  padding: 10px;
-}
-*{
-    padding: 0;
-    margin: 0;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: border-box;
-}
-nav{
-    background: white;
-    width: 100%;
-    display:flex;
-	justify-content:space-between;
-}
-.logocontainer{
-padding:10px 40px;
-}
-
-nav img{
-width:80px;
-height:70px;
-transition: transform 2.5s;
-}
-nav img:hover {
-    transform: perspective(500px) rotateY(360deg);
-}
-nav ul{
- float: right;
-    margin-right: 20px;
-}
-nav ul li{
-    display: inline-block;
-    line-height: 80px;
-    margin: 0 20px;
-}
-nav ul li a{
-    color: darkblue;
-    font-family: agency fb;
-    font-size: 18px;
-    padding: 7px 13px;
-    border-radius: 3px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-a.active,a:hover{
-    background: #1b9bff;
-    transition: .5s;
-}
-h2{
-  font-family: agency fb;
-  color: darkblue;
-}
-.landingpage
-{
-    background-image: url('ch.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 110% ;
-    display: flex;
-    justify-content: space-around;
-    padding: 40px;
-    height: 600px;
-}
-.content_1{
-    font-family: sans-serif;
-    justify-content: left;
-    align-items: left;
-    width: 50%;
-    text-align: left;
-
-}
-.text_1
-{
-    justify-content: left;
-    font-size: xx-large;
-    font-weight: bolder;
-    color:white;
-    text-shadow: 5px 5px blue;
-    align-items: left;
-    text-align: left;  
-}
-
-.back a{
-  margin-left: 50%;
-  font-size: larger;
+h2 {
+  font-family: 'Outfit', 'Montserrat', sans-serif !important;
+  color: #ffffff !important;
+  text-align: center !important;
+  font-weight: 800 !important;
+  font-size: 32px !important;
+  margin-top: 35px !important;
+  margin-bottom: 25px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
 }
 </style>
 <link rel="stylesheet" href="responsive.css">
@@ -168,15 +40,33 @@ h2{
         <br><br>
         <h2>Our Players</h2>
         <br><br>
-<div class="row">
+<div class="player-grid-container">
     <?php
     $rows = mysqli_query($con, "SELECT * FROM playerdetails ORDER BY id DESC");
-    foreach ($rows as $row): ?>
-        <div class="column">
-            <div class="card" style="background-image: url('img/<?php echo $row['image']; ?>');">
-                <div class="card-content">
-                    <h3><?php echo $row["Name"]; ?></h3>
-                    <p><?php echo $row["position"]; ?></p>
+    foreach ($rows as $row): 
+        $imageFile = 'img/' . $row['image'];
+        if (!empty($row['image']) && file_exists($imageFile)) {
+            $imageSrc = $imageFile;
+        } else {
+            $imageSrc = 'giff.gif';
+        }
+    ?>
+        <div class="player-card-modern">
+            <div class="player-image-wrap">
+                <img src="<?php echo $imageSrc; ?>" alt="<?php echo htmlspecialchars($row['Name']); ?>">
+                <span class="player-badge"><?php echo htmlspecialchars($row['position']); ?></span>
+            </div>
+            <div class="player-details-wrap">
+                <div class="player-name-modern"><?php echo htmlspecialchars($row['Name']); ?></div>
+                <div class="player-stats-row">
+                    <div class="player-stat-item">
+                        <div class="stat-val"><?php echo htmlspecialchars($row['matches']); ?></div>
+                        <div class="stat-lbl">Matches</div>
+                    </div>
+                    <div class="player-stat-item">
+                        <div class="stat-val"><?php echo htmlspecialchars($row['goals']); ?></div>
+                        <div class="stat-lbl">Goals</div>
+                    </div>
                 </div>
             </div>
         </div>

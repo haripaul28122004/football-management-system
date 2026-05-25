@@ -41,7 +41,6 @@ if ($result_tournaments) {
 }
 
 
-mysqli_close($conn);
 ?>
 
 <html>
@@ -214,24 +213,20 @@ height:75px;
     <select id="tournament_name" name="TournamentName" onchange="getTeamNames(this.value)" required>
     <option value="">Select tournament</option>
       <?php
-      $conn = require_once 'db.php'; $conn = $con;
-      if ($conn->connect_error) {
-          die("Connection failed: " . $conn->connect_error);
-      }
+      // Reuse existing active connection
+      $conn = $con;
       
         // Fetch tournament names from registrations table
         $sql = "SELECT TournamentName FROM tournament";
         $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result && $result->num_rows > 0) {
                        while ($row = $result->fetch_assoc()) {
                 echo "<option value='" . $row["TournamentName"] . "'>" . $row["TournamentName"] . "</option>";
             }
         } else {
             echo "<option value=''>No tournaments found</option>";
         }
-
-        $conn->close();
       ?>
     </select>
 
