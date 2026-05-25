@@ -3,6 +3,11 @@ FROM php:8.2-apache
 # Install the mysqli extension needed for database connection
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
+# Disable other MPMs and force mpm_prefork to prevent "More than one MPM loaded" error
+RUN (a2dismod mpm_event || true) && \
+    (a2dismod mpm_worker || true) && \
+    a2enmod mpm_prefork
+
 # Enable Apache mod_rewrite and AllowOverride All
 RUN a2enmod rewrite && \
     sed -ri -e 's!AllowOverride None!AllowOverride All!g' /etc/apache2/apache2.conf
